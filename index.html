@@ -1,46 +1,166 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  < title>Sales Table</title>
+  <meta charset="UTF-8" />
+  <title>Invoiced Sales</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
-      padding: 12px;
+      padding: 20px;
+      background: #f9fafb;
     }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
     table {
-      border-collapse: collapse;
       width: 100%;
+      border-collapse: collapse;
+      background: white;
     }
+
     th, td {
       border: 1px solid #ccc;
-      padding: 8px;
+      padding: 8px 10px;
+      text-align: right;
+    }
+
+    th:first-child,
+    td:first-child {
       text-align: left;
     }
+
     th {
-      background: #f4f6f8;
+      background: #f2f2f2;
+      font-weight: 600;
+    }
+
+    .total-row {
+      font-weight: bold;
+      background: #f5f5f5;
     }
   </style>
 </head>
 <body>
 
-<h3>Invoiced Sales (Preview)</h3>
+<h2>Invoiced Sales for Entire Sales Group</h2>
 
 <table>
-  <tr>
-    <th>Category</th>
-    <th>YTD</th>
-    <th>Last Year</th>
-    <th>2 Years Ago</th>
-    <th>3 Years Ago</th>
-  </tr>
-  <tr>
-    <td>Arts & Crafts</td>
-    <td>1000</td>
-    <td>57869.46</td>
-    <td>48580.71</td>
-    <td>80755.64</td>
-  </tr>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>YTD</th>
+      <th>Last Year</th>
+      <th>2 Years Ago</th>
+      <th>3 Years Ago</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <tr>
+      <td>Arts & Crafts</td>
+      <td id="ac_ytd"></td>
+      <td id="ac_ly"></td>
+      <td id="ac_2y"></td>
+      <td id="ac_3y"></td>
+      <td id="ac_total"></td>
+    </tr>
+
+    <tr>
+      <td>Elementary Math</td>
+      <td id="em_ytd"></td>
+      <td id="em_ly"></td>
+      <td id="em_2y"></td>
+      <td id="em_3y"></td>
+      <td id="em_total"></td>
+    </tr>
+
+    <tr>
+      <td>Early Years</td>
+      <td id="ey_ytd"></td>
+      <td id="ey_ly"></td>
+      <td id="ey_2y"></td>
+      <td id="ey_3y"></td>
+      <td id="ey_total"></td>
+    </tr>
+
+    <tr>
+      <td>Healthcare</td>
+      <td id="hc_ytd"></td>
+      <td id="hc_ly"></td>
+      <td id="hc_2y"></td>
+      <td id="hc_3y"></td>
+      <td id="hc_total"></td>
+    </tr>
+
+    <tr>
+      <td>Literacy</td>
+      <td id="lit_ytd"></td>
+      <td id="lit_ly"></td>
+      <td id="lit_2y"></td>
+      <td id="lit_3y"></td>
+      <td id="lit_total"></td>
+    </tr>
+
+    <tr>
+      <td>Physical Education</td>
+      <td id="pe_ytd"></td>
+      <td id="pe_ly"></td>
+      <td id="pe_2y"></td>
+      <td id="pe_3y"></td>
+      <td id="pe_total"></td>
+    </tr>
+
+    <tr>
+      <td>Science</td>
+      <td id="sc_ytd"></td>
+      <td id="sc_ly"></td>
+      <td id="sc_2y"></td>
+      <td id="sc_3y"></td>
+      <td id="sc_total"></td>
+    </tr>
+
+    <tr>
+      <td>Special Education</td>
+      <td id="se_ytd"></td>
+      <td id="se_ly"></td>
+      <td id="se_2y"></td>
+      <td id="se_3y"></td>
+      <td id="se_total"></td>
+    </tr>
+
+    <tr>
+      <td>SI Manufacturing</td>
+      <td id="si_ytd"></td>
+      <td id="si_ly"></td>
+      <td id="si_2y"></td>
+      <td id="si_3y"></td>
+      <td id="si_total"></td>
+    </tr>
+
+    <tr>
+      <td>Technology</td>
+      <td id="tech_ytd"></td>
+      <td id="tech_ly"></td>
+      <td id="tech_2y"></td>
+      <td id="tech_3y"></td>
+      <td id="tech_total"></td>
+    </tr>
+
+    <tr class="total-row">
+      <td>Total</td>
+      <td id="total_ytd"></td>
+      <td id="total_ly"></td>
+      <td id="total_2y"></td>
+      <td id="total_3y"></td>
+      <td id="grand_total"></td>
+    </tr>
+
+  </tbody>
 </table>
 
 </body>
