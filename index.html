@@ -5,8 +5,20 @@
   <title>Invoiced Sales</title>
 <script src="https://api.bitrix24.com/api/v1/"></script>
 <script>
-  BX24.init(function() {
+  BX24.init(function () {
       console.log("Bitrix initialized");
+
+      function resize() {
+          BX24.resizeWindow(
+              document.body.scrollWidth,
+              document.body.scrollHeight
+          );
+      }
+
+      resize();
+
+      // Also resize again after slight delay (Bitrix sometimes needs it)
+      setTimeout(resize, 500);
   });
 </script>
 
