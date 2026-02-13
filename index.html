@@ -3,23 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <title>Invoiced Sales</title>
-<script src="https://api.bitrix24.com/api/v1/"></script>
 <script>
-  BX24.init(function () {
-      console.log("Bitrix initialized");
+document.addEventListener("DOMContentLoaded", function () {
 
-      function resize() {
-          BX24.resizeWindow(
-              document.body.scrollWidth,
-              document.body.scrollHeight
-          );
-      }
+    if (typeof BX24 !== "undefined") {
 
-      resize();
+        BX24.init(function () {
 
-      // Also resize again after slight delay (Bitrix sometimes needs it)
-      setTimeout(resize, 500);
-  });
+            console.log("Bitrix initialized");
+
+            BX24.resizeWindow(
+                document.body.scrollWidth,
+                document.body.scrollHeight
+            );
+
+        });
+
+    } else {
+        console.log("Not inside Bitrix iframe");
+    }
+
+});
 </script>
 
   <style>
