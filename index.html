@@ -3,26 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <title>Invoiced Sales</title>
+<script src="//api.bitrix24.com/api/v1/"></script>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-
+document.addEventListener("DOMContentLoaded", function() {
     if (typeof BX24 !== "undefined") {
-
-        BX24.init(function () {
-
-            console.log("Bitrix initialized");
-
-            BX24.resizeWindow(
-                document.body.scrollWidth,
-                document.body.scrollHeight
-            );
-
+        BX24.init(function() {
+            console.log("Bitrix initialized successfully");
         });
-
     } else {
-        console.log("Not inside Bitrix iframe");
+        console.log("BX24 not loaded");
     }
-
 });
 </script>
 
