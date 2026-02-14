@@ -1,131 +1,130 @@
-export default async function handler(req, res) {
+export default function handler(req, res) {
+
   res.setHeader(
     "Content-Security-Policy",
     "frame-ancestors https://*.bitrix24.com https://*.bitrix24.eu https://*.bitrix24.de https://*.bitrix24.in;"
   );
 
-  try {
-const companyId = req.query.ID || req.query.COMPANY_ID;
+  res.status(200).send(`
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Sales Data</title>
 
-if (!companyId) {
-  return res.status(400).send("Company ID not provided by Bitrix.");
+<script src="https://api.bitrix24.com/api/v1/"></script>
+
+<style>
+body { font-family: Arial; padding:20px; background:#f9fafb; }
+table { width:100%; border-collapse: collapse; background:white; margin-bottom:40px;}
+th, td { border:1px solid #ccc; padding:8px; text-align:right; }
+th:first-child, td:first-child { text-align:left; }
+th { background:#f2f2f2; }
+.total-row { font-weight:bold; background:#f5f5f5; }
+h2 { margin-top:40px; }
+</style>
+</head>
+<body>
+
+<h2>Invoiced Sales for Entire Sales Group</h2>
+<table id="chart1">
+<thead>
+<tr>
+<th>Category</th>
+<th>YTD</th>
+<th>Last Year</th>
+<th>2 Years Ago</th>
+<th>3 Years Ago</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+
+<h2>Marketing Code Sales for Entire Sales Group</h2>
+<table id="chart2">
+<thead>
+<tr>
+<th>Category</th>
+<th>YTD</th>
+<th>Last Year</th>
+<th>2 Years Ago</th>
+<th>3 Years Ago</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+
+<script>
+
+function formatCurrency(value) {
+  if (!value) return "$0.00";
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  }).format(parseFloat(value));
 }
 
-    const response = await fetch(
-      `${process.env.BITRIX_WEBHOOK}/crm.company.get.json?id=${companyId}`
-    );
+const categories = [
+  "Arts & Crafts",
+  "Elementary Math",
+  "Early Years",
+  "Healthcare",
+  "Literacy",
+  "Physical Education",
+  "Science",
+  "Special Education",
+  "SI Manufacturing",
+  "Technology"
+];
 
-    const json = await response.json();
+BX24.init(function() {
 
-if (!json.result) {
-  return res.status(500).send("Bitrix did not return company data. Check webhook or company ID.");
-}
+  BX24.placement.info(function(data) {
 
-const c = json.result;
+    const companyId = data.options.ID;
 
-    res.status(200).send(`
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="UTF-8" />
-        <title>Sales Data</title>
-        <style>
-          body { font-family: Arial; padding:20px; background:#f9fafb; }
-          table { width:100%; border-collapse:collapse; background:white; margin-bottom:40px; }
-          th, td { border:1px solid #ccc; padding:8px; text-align:right; }
-          th:first-child, td:first-child { text-align:left; }
-          th { background:#f2f2f2; }
-          .total-row { font-weight:bold; background:#f5f5f5; }
-          h2 { margin-bottom:15px; }
-        </style>
-      </head>
-      <body>
+    fetch('/api/company?id=' + companyId)
+      .then(res => res.json())
+      .then(company => {
 
-        ${buildInvoicedTable(c)}
-        ${buildMarketingTable(c)}
+        const chart1Body = document.querySelector("#chart1 tbody");
+        const chart2Body = document.querySelector("#chart2 tbody");
 
-      </body>
-      </html>
-    `);
+        categories.forEach(cat => {
 
-  } catch (error) {
-    res.status(500).send("Error: " + error.message);
-  }
-}
+          const row1 = document.createElement("tr");
+          const row2 = document.createElement("tr");
 
-/* ---------- FORMATTER ---------- */
+          row1.innerHTML = \`
+            <td>\${cat}</td>
+            <td>$0.00</td>
+            <td>$0.00</td>
+            <td>$0.00</td>
+            <td>$0.00</td>
+          \`;
 
-function money(val) {
-  if (!val) return "";
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD"
-  }).format(Number(val));
-}
+          row2.innerHTML = \`
+            <td>\${cat}</td>
+            <td>$0.00</td>
+            <td>$0.00</td>
+            <td>$0.00</td>
+            <td>$0.00</td>
+          \`;
 
-/* ---------- TABLE 1 ---------- */
+          chart1Body.appendChild(row1);
+          chart2Body.appendChild(row2);
 
-function buildInvoicedTable(c) {
-  return `
-  <h2>Invoiced Sales for Entire Sales Group</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Category</th>
-        <th>YTD</th>
-        <th>Last Year</th>
-        <th>2 Years Ago</th>
-        <th>3 Years Ago</th>
-      </tr>
-    </thead>
-    <tbody>
+        });
 
-      <tr>
-        <td>Arts & Crafts</td>
-        <td>${money(c.UF_CRM_1770346519029)}</td>
-        <td>${money(c.UF_CRM_1770346601362)}</td>
-        <td>${money(c.UF_CRM_1770346643167)}</td>
-        <td>${money(c.UF_CRM_1770346666348)}</td>
-      </tr>
+      });
 
-      <tr class="total-row">
-        <td>Total</td>
-        <td>${money(c.UF_CRM_1770555237026)}</td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
+  });
 
-    </tbody>
-  </table>
-  `;
-}
+});
 
-/* ---------- TABLE 2 ---------- */
+</script>
 
-function buildMarketingTable(c) {
-  return `
-  <h2>Marketing Code Sales</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Category</th>
-        <th>YTD</th>
-      </tr>
-    </thead>
-    <tbody>
-
-      <tr>
-        <td>Arts & Crafts</td>
-        <td>${money(c.UF_CRM_1770387505317)}</td>
-      </tr>
-
-      <tr class="total-row">
-        <td>Total</td>
-        <td>${money(c.UF_CRM_1770749305699)}</td>
-      </tr>
-
-    </tbody>
-  </table>
-  `;
+</body>
+</html>
+`);
 }
