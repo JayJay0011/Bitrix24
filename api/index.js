@@ -31,7 +31,6 @@ th { background:#f2f2f2; }
 <th>Last Year</th>
 <th>2 Years Ago</th>
 <th>3 Years Ago</th>
-<th>Total</th>
 </tr>
 </thead>
 <tbody>
