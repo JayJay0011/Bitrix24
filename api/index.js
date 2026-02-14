@@ -33,18 +33,19 @@ th { background:#f2f2f2; }
 <th>3 Years Ago</th>
 </tr>
 </thead>
+
 <tbody>
 
-<tr><td>Arts & Crafts</td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><td>Elementary Math</td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><td>Early Years</td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><td>Healthcare</td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><td>Literacy</td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><td>Physical Education</td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><td>Science</td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><td>Special Education</td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><td>SI Manufacturing</td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><td>Technology</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Arts & Crafts</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Elementary Math</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Early Years</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Healthcare</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Literacy</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Physical Education</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Science</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Special Education</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>SI Manufacturing</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Technology</td><td></td><td></td><td></td><td></td></tr>
 
 <tr class="total-row">
 <td>Total</td>
@@ -52,10 +53,12 @@ th { background:#f2f2f2; }
 <td></td>
 <td></td>
 <td></td>
-<td></td>
 </tr>
 
 </tbody>
+</table>
+
+</body>
 
 </table>
 
