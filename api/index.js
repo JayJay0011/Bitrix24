@@ -6,6 +6,16 @@ export default function handler(req, res) {
   );
 
   res.status(200).send(`
+  const placement = req.query.PLACEMENT_OPTIONS
+  ? JSON.parse(req.query.PLACEMENT_OPTIONS)
+  : null;
+
+if (!placement || !placement.ID) {
+  return res.status(400).send("Company ID not provided by Bitrix.");
+}
+
+const companyId = placement.ID;
+
 <!DOCTYPE html>
 <html>
 <head>
