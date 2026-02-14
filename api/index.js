@@ -5,14 +5,23 @@ export default async function handler(req, res) {
   );
 
   try {
-    const companyId = req.query.ID || 1;
+const companyId = req.query.ID || req.query.COMPANY_ID;
+
+if (!companyId) {
+  return res.status(400).send("Company ID not provided by Bitrix.");
+}
 
     const response = await fetch(
       `${process.env.BITRIX_WEBHOOK}/crm.company.get.json?id=${companyId}`
     );
 
     const json = await response.json();
-    const c = json.result;
+
+if (!json.result) {
+  return res.status(500).send("Bitrix did not return company data. Check webhook or company ID.");
+}
+
+const c = json.result;
 
     res.status(200).send(`
       <!DOCTYPE html>
